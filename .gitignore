@@ -1,2 +1,8 @@
 __pycache__/
 *.pyc
+# Không đưa lên web
+/1793069*.jpg
+/design-system/
+/.claude/
+/content/
+/PLAN.md
