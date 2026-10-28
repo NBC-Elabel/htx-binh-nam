@@ -1,0 +1,14 @@
+{{> pagehead}}
+<section class="section recipes recipes--list" aria-labelledby="h-posts">
+  <div class="container">
+    <h2 class="sr-only" id="h-posts">Danh sách bài viết</h2>
+    <div class="filter-tabs reveal" role="tablist" aria-label="Lọc theo loại bài">
+      <button class="filter-tab" role="tab" type="button" data-filter="all" aria-selected="true" aria-controls="postGrid">Tất cả</button>
+      <button class="filter-tab" role="tab" type="button" data-filter="cong-thuc" aria-selected="false" aria-controls="postGrid" tabindex="-1">Công thức</button>
+      <button class="filter-tab" role="tab" type="button" data-filter="tin-tuc" aria-selected="false" aria-controls="postGrid" tabindex="-1">Tin tức</button>
+    </div>
+    <div class="post-grid" id="postGrid" role="tabpanel" aria-label="Danh sách bài viết" data-stagger>
+{{posts_grid}}
+    </div>
+  </div>
+</section>

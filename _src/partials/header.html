@@ -1,0 +1,41 @@
+<div class="progress" id="progress" aria-hidden="true"></div>
+<a class="skip-link" href="#noi-dung-chinh">Bỏ qua đến nội dung chính</a>
+
+<header class="site-header" id="header">
+  <div class="container header-inner">
+    <a class="brand" href="{{root}}index.html" aria-label="HTX Bình Nam, về trang chủ"{{cur_home}}>
+      <span class="logo-badge"><picture><source type="image/webp" srcset="{{root}}assets/img/logo-badge-320.webp"><img src="{{root}}assets/img/logo-badge-320.png" width="320" height="320" alt="Logo HTX Nông nghiệp Bình Nam: hình máy cày trong vòng tròn xanh lá, băng rôn cam ghi BÌNH NAM" decoding="async"></picture></span>
+      <span class="brand-text"><strong>Bình Nam</strong><span>HTX Dịch vụ Nông nghiệp</span></span>
+    </a>
+    <nav class="nav-desktop" aria-label="Điều hướng chính">
+      <ul>
+        <li><a href="{{root}}index.html"{{cur_home}}>Trang chủ</a></li>
+        <li><a href="{{root}}gioi-thieu.html"{{cur_gioithieu}}>Giới thiệu</a></li>
+        <li><a href="{{root}}san-pham.html"{{cur_sanpham}}>Sản phẩm</a></li>
+        <li><a href="{{root}}goc-bep.html"{{cur_gocbep}}>Góc bếp</a></li>
+        <li><a href="{{root}}lien-he.html"{{cur_lienhe}}>Liên hệ</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn--gold btn--sm" href="{{root}}lien-he.html">Đặt hàng</a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Mở menu">
+        <svg class="icon i-open" aria-hidden="true"><use href="#i-menu"/></svg>
+        <svg class="icon i-close" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu điều hướng" aria-hidden="true">
+  <nav aria-label="Điều hướng di động">
+    <a href="{{root}}index.html" style="--i:0"{{cur_home}}>Trang chủ</a>
+    <a href="{{root}}gioi-thieu.html" style="--i:1"{{cur_gioithieu}}>Giới thiệu</a>
+    <a href="{{root}}san-pham.html" style="--i:2"{{cur_sanpham}}>Sản phẩm</a>
+    <a href="{{root}}goc-bep.html" style="--i:3"{{cur_gocbep}}>Góc bếp</a>
+    <a href="{{root}}lien-he.html" style="--i:4"{{cur_lienhe}}>Liên hệ</a>
+  </nav>
+  <div class="mm-foot">
+    <a class="btn btn--gold" href="{{root}}lien-he.html">Đặt hàng</a>
+    <p>Từ hạt quê, ép nguyên chất.</p>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+    <div class="form-card reveal reveal--right" id="formCard">
+      <form id="orderForm" novalidate>
+        <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="field" data-field="name">
+          <label for="f-name">Họ và tên <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name">
+          <p class="field-error" id="e-name" role="alert"></p>
+        </div>
+        <div class="field" data-field="phone">
+          <label for="f-phone">Số điện thoại <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="e-phone">
+          <p class="field-error" id="e-phone" role="alert"></p>
+        </div>
+        <fieldset class="picker field-block" id="picker" tabindex="-1" aria-describedby="e-picker">
+          <legend>Chọn sản phẩm và số lượng</legend>
+          <div class="pick-group" data-line="dau-phong"><h4 class="pick-head"><span class="dot"></span>Dầu đậu phộng</h4>
+            <div class="pick-row" data-sku="dp500" data-line="dau-phong" data-name="Dầu đậu phộng 500 ml">
+              <span class="pick-thumb"><picture><source type="image/webp" srcset="{{root}}assets/img/dau-phong-500ml-800.webp"><img src="{{root}}assets/img/dau-phong-500ml.jpg" width="56" height="56" alt="" loading="lazy" decoding="async"></picture><svg class="icon pick-check" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <div class="pick-info"><label class="pick-name" for="q-dp500">Dầu đậu phộng 500 ml</label><span class="chip">500 ml</span></div>
+              <div class="stepper">
+                <button class="step-btn" type="button" data-d="-1" aria-label="Giảm số lượng dầu đậu phộng 500 ml"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg></button>
+                <input class="qty" id="q-dp500" type="number" inputmode="numeric" min="0" max="99" value="0" aria-live="off">
+                <button class="step-btn" type="button" data-d="1" aria-label="Tăng số lượng dầu đậu phộng 500 ml"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
+              </div>
+            </div>
+            <div class="pick-row" data-sku="dp1l" data-line="dau-phong" data-name="Dầu đậu phộng 1 lít">
+              <span class="pick-thumb"><picture><source type="image/webp" srcset="{{root}}assets/img/dau-phong-1l-800.webp"><img src="{{root}}assets/img/dau-phong-1l.jpg" width="56" height="56" alt="" loading="lazy" decoding="async"></picture><svg class="icon pick-check" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <div class="pick-info"><label class="pick-name" for="q-dp1l">Dầu đậu phộng 1 lít</label><span class="chip">1 lít</span></div>
+              <div class="stepper">
+                <button class="step-btn" type="button" data-d="-1" aria-label="Giảm số lượng dầu đậu phộng 1 lít"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg></button>
+                <input class="qty" id="q-dp1l" type="number" inputmode="numeric" min="0" max="99" value="0" aria-live="off">
+                <button class="step-btn" type="button" data-d="1" aria-label="Tăng số lượng dầu đậu phộng 1 lít"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
+              </div>
+            </div>
+            <div class="pick-row" data-sku="dp5l" data-line="dau-phong" data-name="Dầu đậu phộng can 5 lít">
+              <span class="pick-thumb"><picture><source type="image/webp" srcset="{{root}}assets/img/dau-phong-5l-800.webp"><img src="{{root}}assets/img/dau-phong-5l.jpg" width="56" height="56" alt="" loading="lazy" decoding="async"></picture><svg class="icon pick-check" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <div class="pick-info"><label class="pick-name" for="q-dp5l">Dầu đậu phộng can 5 lít</label><span class="chip">Can 5 lít</span></div>
+              <div class="stepper">
+                <button class="step-btn" type="button" data-d="-1" aria-label="Giảm số lượng dầu đậu phộng can 5 lít"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg></button>
+                <input class="qty" id="q-dp5l" type="number" inputmode="numeric" min="0" max="99" value="0" aria-live="off">
+                <button class="step-btn" type="button" data-d="1" aria-label="Tăng số lượng dầu đậu phộng can 5 lít"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
+              </div>
+            </div>
+          </div>
+          <div class="pick-group" data-line="me-den"><h4 class="pick-head"><span class="dot"></span>Dầu mè đen</h4>
+            <div class="pick-row" data-sku="me250" data-line="me-den" data-name="Dầu mè đen 250 ml">
+              <span class="pick-thumb"><picture><source type="image/webp" srcset="{{root}}assets/img/dau-me-den-250ml-800.webp"><img src="{{root}}assets/img/dau-me-den-250ml.jpg" width="56" height="56" alt="" loading="lazy" decoding="async"></picture><svg class="icon pick-check" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <div class="pick-info"><label class="pick-name" for="q-me250">Dầu mè đen 250 ml</label><span class="chip">250 ml</span></div>
+              <div class="stepper">
+                <button class="step-btn" type="button" data-d="-1" aria-label="Giảm số lượng dầu mè đen 250 ml"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg></button>
+                <input class="qty" id="q-me250" type="number" inputmode="numeric" min="0" max="99" value="0" aria-live="off">
+                <button class="step-btn" type="button" data-d="1" aria-label="Tăng số lượng dầu mè đen 250 ml"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
+              </div>
+            </div>
+            <div class="pick-row" data-sku="me500" data-line="me-den" data-name="Dầu mè đen 500 ml">
+              <span class="pick-thumb"><picture><source type="image/webp" srcset="{{root}}assets/img/dau-me-den-500ml-800.webp"><img src="{{root}}assets/img/dau-me-den-500ml.jpg" width="56" height="56" alt="" loading="lazy" decoding="async"></picture><svg class="icon pick-check" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <div class="pick-info"><label class="pick-name" for="q-me500">Dầu mè đen 500 ml</label><span class="chip">500 ml</span></div>
+              <div class="stepper">
+                <button class="step-btn" type="button" data-d="-1" aria-label="Giảm số lượng dầu mè đen 500 ml"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg></button>
+                <input class="qty" id="q-me500" type="number" inputmode="numeric" min="0" max="99" value="0" aria-live="off">
+                <button class="step-btn" type="button" data-d="1" aria-label="Tăng số lượng dầu mè đen 500 ml"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
+              </div>
+            </div>
+          </div>
+          <p class="field-error" id="e-picker" role="alert"></p>
+        </fieldset>
+        <div class="order-sum" id="orderSum" aria-live="polite">
+          <h4>Đơn của bạn</h4>
+          <p class="sum-empty" id="sumEmpty">Chưa chọn sản phẩm nào</p>
+          <ul class="sum-list" id="sumList"></ul>
+          <p class="sum-total" id="sumTotalWrap" hidden>Tổng: <b id="sumTotal">0</b> sản phẩm</p>
+        </div>
+        <div class="consult">
+          <label class="consult-card" for="f-consult">
+            <input type="checkbox" id="f-consult" name="consult">
+            <span class="cc-box" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>
+            <span class="cc-text"><b>Tôi cần tư vấn thêm</b><small>HTX sẽ gọi lại để tư vấn quy cách, số lượng phù hợp</small></span>
+          </label>
+          <div class="consult-extra" id="consultExtra" inert>
+            <div class="ce-inner">
+              <fieldset class="chips"><legend>Nội dung cần tư vấn</legend>
+                <label class="chip-opt"><input type="checkbox" name="topic" value="Chọn quy cách phù hợp"><span>Chọn quy cách phù hợp</span></label>
+                <label class="chip-opt"><input type="checkbox" name="topic" value="Đặt số lượng lớn / quán ăn"><span>Đặt số lượng lớn / quán ăn</span></label>
+                <label class="chip-opt"><input type="checkbox" name="topic" value="Giao hàng"><span>Giao hàng</span></label>
+                <label class="chip-opt"><input type="checkbox" name="topic" value="Cách dùng và bảo quản"><span>Cách dùng và bảo quản</span></label>
+                <label class="chip-opt"><input type="checkbox" name="topic" value="Khác"><span>Khác</span></label>
+              </fieldset>
+              <div class="field">
+                <label for="f-time">Thời gian gọi lại</label>
+                <select id="f-time" name="callback">
+                  <option>Bất kỳ lúc nào</option>
+                  <option>Buổi sáng</option>
+                  <option>Buổi chiều</option>
+                  <option>Buổi tối</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-addr">Địa chỉ nhận hàng</label>
+          <input id="f-addr" name="address" type="text" autocomplete="street-address">
+        </div>
+        <div class="field">
+          <label for="f-msg">Lời nhắn</label>
+          <textarea id="f-msg" name="message" placeholder="Ví dụ: thời gian giao hàng mong muốn, câu hỏi cần tư vấn…"></textarea>
+        </div>
+        <div class="form-error" id="formError" role="alert" hidden>Chưa gửi được. Vui lòng thử lại hoặc liên hệ qua <a href="tel:0971292430">0971 292 430</a> · <a href="https://zalo.me/0971292430" target="_blank" rel="noopener">Zalo</a></div>
+        <button class="btn btn--dark" id="submitBtn" type="submit" style="width:100%"><span class="spin" aria-hidden="true"></span><span class="btn-label">Gửi yêu cầu</span><svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </form>
+      <div class="form-success" id="formSuccess" role="status" tabindex="-1">
+        <div class="ok"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></div>
+        <p>Cảm ơn bạn! HTX đã nhận được thông tin và sẽ liên hệ lại với bạn.</p>
+        <div class="recap" id="successRecap"><ul id="successLines"></ul><p id="successCall"></p></div>
+        <button class="btn btn--sm" type="button" id="formReset">Gửi yêu cầu khác</button>
+      </div>
+    </div>

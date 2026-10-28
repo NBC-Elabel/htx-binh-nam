@@ -8,6 +8,7 @@
   var reduced = reduceMQ.matches;
   reduceMQ.addEventListener && reduceMQ.addEventListener('change', function (e) { reduced = e.matches; });
 
+  var ROOT = document.body.getAttribute('data-root') || '';
   var header = $('#header');
   var headerH = function () { return header ? header.offsetHeight : 72; };
 
@@ -98,18 +99,9 @@
   var progress = $('#progress');
   var toTop = $('#toTop');
   var hero = $('.hero');
-  var navLinks = $$('[data-nav]');
-  var spySections = $$('[data-spy]');
   var parallaxEls = $$('[data-parallax]');
   var ticking = false;
 
-  function setActiveNav(id) {
-    navLinks.forEach(function (a) {
-      var on = a.getAttribute('data-nav') === id;
-      a.classList.toggle('is-active', on);
-      if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
-    });
-  }
   function onScroll() {
     ticking = false;
     var y = window.scrollY || window.pageYOffset;
@@ -118,13 +110,6 @@
     header.classList.toggle('is-scrolled', y > 24);
     toTop.classList.toggle('is-show', y > 700);
 
-    // scroll-spy
-    var line = headerH() + window.innerHeight * 0.3, current = '';
-    spySections.forEach(function (s) {
-      var r = s.getBoundingClientRect();
-      if (r.top <= line && r.bottom > line) current = s.getAttribute('data-spy');
-    });
-    setActiveNav(current);
 
     // parallax (transform only), only while hero in view
     if (!reduced && hero && y < hero.offsetHeight + 200) {
@@ -158,7 +143,8 @@
     });
   }
 
-  /* ---------- Hero slider ---------- */
+  /* ---------- Hero slider (home only) ---------- */
+  if (hero) {
   var slides = $$('.hero-slide');
   var dots = $$('.hero-dot');
   var themes = ['peanut', 'sesame'];
@@ -180,9 +166,6 @@
     dots.forEach(function (d, i) { d.setAttribute('aria-current', i === n ? 'true' : 'false'); });
     hero.setAttribute('data-theme', themes[n]);
     heroCur.textContent = '0' + (n + 1);
-    var other = (n + 1) % slides.length, prev = (n - 1 + slides.length) % slides.length;
-    prevBtn.setAttribute('aria-label', 'Chuyển đến slide ' + (prev + 1));
-    nextBtn.setAttribute('aria-label', 'Chuyển đến slide ' + (other + 1));
     syncHeaderTone();
   }
   function heroShouldRun() { return !reduced && !heroUserPaused && !heroHover && !heroFocus && !document.hidden; }
@@ -222,6 +205,7 @@
   })();
   goSlide(0);
   heroSchedule();
+  }
 
   /* ---------- Mobile menu ---------- */
   var menuBtn = $('#menuToggle'), menu = $('#mobileMenu');
@@ -282,8 +266,8 @@
   $$('.overlay').forEach(function (o) { o.setAttribute('inert', ''); });
   function inertSync(el, open) { if (open) el.removeAttribute('inert'); else el.setAttribute('inert', ''); }
 
-  /* ---------- Product filter ---------- */
-  var tabs = $$('.filter-tab'), cards = $$('.product-card');
+  /* ---------- Filter tabs (products / posts) ---------- */
+  var tabs = $$('.filter-tab'), cards = $$('[data-filterable]');
   function applyFilter(f, animate) {
     tabs.forEach(function (t) {
       var on = t.getAttribute('data-filter') === f;
@@ -313,13 +297,14 @@
       if (j !== null) { e.preventDefault(); tabs[j].focus(); applyFilter(tabs[j].getAttribute('data-filter'), true); }
     });
   });
-  $$('[data-filter-link]').forEach(function (a) {
-    a.addEventListener('click', function () { applyFilter(a.getAttribute('data-filter-link'), false); });
-  });
+  if (tabs.length) {
+    var qf = new URLSearchParams(location.search).get('loai');
+    if (qf && tabs.some(function (t) { return t.getAttribute('data-filter') === qf; })) applyFilter(qf, false);
+  }
 
   // tilt on hover (fine pointers only)
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    cards.forEach(function (c) {
+    $$('.product-card').forEach(function (c) {
       var m = $('.pc-media picture', c);
       if (!m) return;
       c.addEventListener('pointermove', function (e) {
@@ -328,7 +313,7 @@
         var px = (e.clientX - r.left) / r.width - 0.5, py = (e.clientY - r.top) / r.height - 0.5;
         m.style.setProperty('--ry', (px * 6).toFixed(2) + 'deg');
         m.style.setProperty('--rx', (-py * 6).toFixed(2) + 'deg');
-        m.style.setProperty('--sc', reduced ? 1 : 1.05);
+        m.style.setProperty('--sc', 1.05);
       });
       c.addEventListener('pointerleave', function () {
         m.style.setProperty('--ry', '0deg'); m.style.setProperty('--rx', '0deg'); m.style.setProperty('--sc', 1);
@@ -336,58 +321,13 @@
     });
   }
 
-  /* ---------- Product modal ---------- */
-  var P = {
-    dp500: { line: 'dau-phong', img: 'dau-phong-500ml', w: 1280, h: 1170, w2: 1280, spec: '500 ml', name: 'Dầu đậu phộng Bình Nam 500 ml', tag: 'Gọn nhẹ, đủ cho bếp nhà.', desc: 'Chai 500 ml nhỏ gọn, dễ cầm và dễ bảo quản trong tủ bếp. Dầu được ép từ 100% hạt đậu phộng nguyên chất, màu vàng óng, hương béo bùi tự nhiên. Thích hợp để xào rau củ hằng ngày, trộn gỏi hay rưới lên món ăn trong bữa cơm gia đình.', fit: 'Gia đình nhỏ, bữa cơm hằng ngày', ing: '100% từ đậu phộng nguyên chất.', code: '8938535139037 · 500 ml', alt: 'Hai chai dầu đậu phộng Bình Nam 500 ml, mặt trước và mặt sau, đặt cạnh hạt đậu phộng', prod: 'Dầu đậu phộng 500 ml' },
-    dp1l: { line: 'dau-phong', img: 'dau-phong-1l', w: 1280, h: 1170, w2: 1280, spec: '1 lít', name: 'Dầu đậu phộng Bình Nam 1 lít', tag: 'Đầy chai, cho bếp dùng đều tay.', desc: 'Chai 1 lít có dung tích vừa đủ cho bếp dùng thường xuyên. Dầu đậu phộng nguyên chất có màu vàng tươi, mùi thơm nhẹ, kết hợp tốt với nhiều món như xào, kho, rưới rau luộc. Chỉ cần mở nắp là có thể dùng ngay trong bữa ăn.', fit: 'Gia đình đông người, bếp nấu thường ngày', ing: '100% từ đậu phộng nguyên chất.', code: '8938535139006 · 1 lít (1.000 ml)', alt: 'Hai chai dầu đậu phộng Bình Nam 1 lít, mặt trước và mặt sau, màu vàng óng', prod: 'Dầu đậu phộng 1 lít' },
-    dp5l: { line: 'dau-phong', img: 'dau-phong-5l', w: 853, h: 1280, w2: 853, fit_img: 'contain', spec: 'Can 5 lít', name: 'Dầu đậu phộng Bình Nam can 5 lít', tag: 'Đủ đầy cho bếp lớn.', desc: 'Can 5 lít dành cho bếp ăn và quán ăn cần lượng dầu lớn. Can có quai xách, dễ di chuyển trong bếp. Dầu được ép từ 100% hạt đậu phộng nguyên chất. Nhãn sản phẩm ghi rõ không chất bảo quản, không chất tạo màu, không chất tẩy trắng.', fit: 'Bếp ăn, quán ăn, nhà hàng nhỏ', ing: '100% từ đậu phộng nguyên chất.', code: '[Cập nhật mã vạch] · 5 lít (5.000 ml)', alt: 'Can dầu đậu phộng Bình Nam 5 lít có quai xách, nhãn xanh lá, bên cạnh hạt đậu phộng', prod: 'Dầu đậu phộng can 5 lít' },
-    me250: { line: 'me-den', img: 'dau-me-den-250ml', w: 1280, h: 853, w2: 1280, spec: '250 ml', name: 'Dầu mè đen Bình Nam 250 ml', tag: 'Một chai nhỏ, thơm cả bữa.', desc: 'Chai 250 ml nhỏ gọn, vừa để làm quen với dầu mè đen, vừa tiện để sẵn trên bàn ăn. Dầu được ép từ 100% hạt mè đen nguyên chất, màu nâu hổ phách, hương mè thơm đậm. Chỉ cần vài giọt rưới lên cơm nóng, cháo hoặc rau trộn là bữa ăn đã đậm đà hơn.', fit: 'Gia đình nhỏ, người mới dùng dầu mè đen', ing: '100% từ mè đen nguyên chất.', code: '8938535139044 · 250 ml', alt: 'Hai chai dầu mè đen Bình Nam 250 ml, có nhãn ghi dầu mè đen 250ml', prod: 'Dầu mè đen 250 ml' },
-    me500: { line: 'me-den', img: 'dau-me-den-500ml', w: 1280, h: 1170, w2: 1280, spec: '500 ml', name: 'Dầu mè đen Bình Nam 500 ml', tag: 'Hương mè đậm, dùng cả nhà.', desc: 'Chai 500 ml là lựa chọn cân bằng giữa gọn nhẹ và đủ dùng cho gia đình. Dầu ép từ 100% hạt mè đen nguyên chất, màu hổ phách óng, mùi thơm đặc trưng. Dùng để trộn gỏi, rưới cháo, chấm rau hay thêm vào món canh để đổi vị.', fit: 'Gia đình, bếp ăn cần dầu mè đen thường xuyên', ing: '100% từ mè đen nguyên chất.', code: '8938535139051 · 500 ml', alt: 'Hai chai dầu mè đen Bình Nam 500 ml màu nâu hổ phách, cạnh hạt mè đen và bát dầu', prod: 'Dầu mè đen 500 ml' }
-  };
-  var pmEl = $('#productModal'), pmDialog = $('#pmDialog');
-  var pmCurrent = null;
-  var pm = Overlay(pmEl, pmDialog, function () { inertSync(pmEl, false); });
-  function openProduct(id, trigger) {
-    var p = P[id]; if (!p) return;
-    pmCurrent = p;
-    pmDialog.setAttribute('data-line', p.line);
-    pmDialog.setAttribute('data-fit', p.fit_img || 'cover');
-    $('#pmMedia').innerHTML = '<picture><source type="image/webp" srcset="assets/img/' + p.img + '-800.webp 800w, assets/img/' + p.img + '-1600.webp ' + p.w2 + 'w" sizes="(min-width: 960px) 460px, 90vw"><img src="assets/img/' + p.img + '.jpg" width="' + p.w + '" height="' + p.h + '" alt="' + p.alt + '"></picture>';
-    $('#pmSpec').textContent = p.spec;
-    $('#pm-title').textContent = p.name;
-    $('#pmTag').textContent = p.tag;
-    $('#pmDesc').textContent = p.desc;
-    $('#pmFor').textContent = p.fit;
-    $('#pmIng').textContent = p.ing;
-    $('#pmCode').textContent = p.code;
-    inertSync(pmEl, true);
-    pm.open(trigger, $('.modal-close', pmEl));
-    pmDialog.scrollTop = 0;
-  }
-  $$('[data-open]').forEach(function (b) { b.addEventListener('click', function () { openProduct(b.getAttribute('data-open'), b); }); });
-  // whole card clickable (mouse); keyboard uses the button
-  cards.forEach(function (c) {
-    c.addEventListener('click', function (e) {
-      if (e.target.closest('button') || !c.getAttribute('data-id')) return;
-      openProduct(c.getAttribute('data-id'), $('.pc-open', c));
-    });
-  });
-  $('#pmOrder').addEventListener('click', function (e) {
-    e.preventDefault();
-    var sel = $('#f-product');
-    if (pmCurrent && sel) sel.value = pmCurrent.prod;
-    pmEl.setAttribute('inert', '');
-    pm.close();
-    var t = $('#lien-he');
-    setTimeout(function () { t.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' }); }, 60);
-  });
-
   /* ---------- Lightbox ---------- */
+  if ($('#lightbox')) {
   var SETS = {
-    ocop: [{ src: 'assets/img/chung-nhan-ocop.jpg', w: 950, h: 1336, title: 'Chứng nhận OCOP 3 sao', alt: 'Giấy chứng nhận OCOP 3 sao cho Dầu đậu phộng nguyên chất Bình Nam, UBND huyện Thăng Bình cấp ngày 11/12/2024' }],
+    ocop: [{ src: ROOT + 'assets/img/chung-nhan-ocop.jpg', w: 950, h: 1336, title: 'Chứng nhận OCOP 3 sao', alt: 'Giấy chứng nhận OCOP 3 sao cho dầu đậu phộng nguyên chất Bình Nam, UBND huyện Thăng Bình cấp ngày 11/12/2024' }],
     tsl: [
-      { src: 'assets/img/kiem-nghiem-tsl-1.jpg', w: 930, h: 1280, title: 'Phiếu kiểm nghiệm TSL · Trang 1', alt: 'Trang 1 phiếu kết quả kiểm nghiệm của Trung tâm Kiểm nghiệm TSL, mẫu dầu lạc, bảng chỉ tiêu 1 đến 13' },
-      { src: 'assets/img/kiem-nghiem-tsl-2.jpg', w: 920, h: 1280, title: 'Phiếu kiểm nghiệm TSL · Trang 2', alt: 'Trang 2 phiếu kết quả kiểm nghiệm TSL, bảng chỉ tiêu 14 đến 16' }
+      { src: ROOT + 'assets/img/kiem-nghiem-tsl-1.jpg', w: 930, h: 1280, title: 'Phiếu kiểm nghiệm TSL · Trang 1', alt: 'Trang 1 phiếu kết quả kiểm nghiệm của Trung tâm Kiểm nghiệm TSL, mẫu dầu lạc, bảng chỉ tiêu 1 đến 13' },
+      { src: ROOT + 'assets/img/kiem-nghiem-tsl-2.jpg', w: 920, h: 1280, title: 'Phiếu kiểm nghiệm TSL · Trang 2', alt: 'Trang 2 phiếu kết quả kiểm nghiệm TSL, bảng chỉ tiêu 14 đến 16' }
     ]
   };
   var lbEl = $('#lightbox'), lbDialog = $('#lbDialog'), lbImg = $('#lbImg'), lbStage = $('#lbStage');
@@ -427,7 +367,8 @@
   }
   $$('[data-lightbox]').forEach(function (b) {
     b.addEventListener('click', function () {
-      lbSet = SETS[b.getAttribute('data-lightbox')];
+      var g = b.getAttribute('data-lightbox');
+      lbSet = SETS[g] || [{ src: b.getAttribute('data-src') ? ROOT + b.getAttribute('data-src') : '', w: parseInt(b.getAttribute('data-w'), 10), h: parseInt(b.getAttribute('data-h'), 10), title: b.getAttribute('data-title') || '', alt: b.getAttribute('data-alt') || '' }];
       inertSync(lbEl, true);
       showLb(parseInt(b.getAttribute('data-index') || '0', 10), true);
       lb.open(b, $('.icon-btn[data-close]', lbEl));
@@ -442,8 +383,10 @@
     if (!lb.isOpen() || lbSet.length < 2) return;
     if (e.key === 'ArrowLeft') showLb(lbI - 1); else if (e.key === 'ArrowRight') showLb(lbI + 1);
   });
+  }
 
   /* ---------- Lab table expand ---------- */
+  if ($('#labToggle')) {
   var lab = $('#lab'), labBtn = $('#labToggle'), labTxt = $('#labToggleText');
   labBtn.addEventListener('click', function () {
     var open = !lab.classList.contains('is-expanded');
@@ -451,6 +394,7 @@
     labBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
     labTxt.textContent = open ? 'Thu gọn' : 'Xem đầy đủ 16 chỉ tiêu';
   });
+  }
 
   /* ---------- FAQ accordion ---------- */
   $$('.faq-q').forEach(function (q) {
@@ -462,69 +406,275 @@
     });
   });
 
-  /* ---------- Contact form ---------- */
+  /* ---------- Contact form (lien-he page only) ---------- */
+  if ($('#orderForm')) {
   var form = $('#orderForm'), card = $('#formCard'), success = $('#formSuccess');
   var MSG = {
     name: 'Vui lòng nhập họ và tên.',
     phoneEmpty: 'Vui lòng nhập số điện thoại.',
     phoneBad: 'Số điện thoại chưa đúng. Vui lòng kiểm tra lại.',
-    product: 'Vui lòng chọn sản phẩm quan tâm.'
+    picker: 'Vui lòng chọn ít nhất 1 sản phẩm hoặc chọn “Tôi cần tư vấn thêm”.'
   };
   var PHONE_RE = /^(?:\+?84|0)[235789]\d{8}$/;
   function validateField(name) {
     var f = $('[data-field="' + name + '"]', form);
-    var input = $('input, select', f), err = $('.field-error', f), v = input.value.trim(), msg = '';
+    var input = $('input', f), err = $('.field-error', f), v = input.value.trim(), msg = '';
     if (name === 'name' && !v) msg = MSG.name;
     if (name === 'phone') {
       if (!v) msg = MSG.phoneEmpty;
       else if (!PHONE_RE.test(v.replace(/[\s.\-()]/g, ''))) msg = MSG.phoneBad;
     }
-    if (name === 'product' && !v) msg = MSG.product;
     f.classList.toggle('has-error', !!msg);
     err.textContent = msg;
     if (msg) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid');
     return !msg;
   }
-  ['name', 'phone', 'product'].forEach(function (n) {
-    var f = $('[data-field="' + n + '"]', form), input = $('input, select', f);
+  ['name', 'phone'].forEach(function (n) {
+    var f = $('[data-field="' + n + '"]', form), input = $('input', f);
     input.addEventListener('blur', function () { if (input.value || f.classList.contains('has-error')) validateField(n); });
     input.addEventListener('input', function () { if (f.classList.contains('has-error')) validateField(n); });
-    input.addEventListener('change', function () { if (f.classList.contains('has-error')) validateField(n); });
   });
+
+  /* picker + summary */
+  var picker = $('#picker'), rows = $$('.pick-row', form), consult = $('#f-consult'), consultExtra = $('#consultExtra');
+  var sumList = $('#sumList'), sumEmpty = $('#sumEmpty'), sumTotalWrap = $('#sumTotalWrap'), sumTotal = $('#sumTotal');
+  var sumItems = {};
+  function qtyOf(row) { return parseInt($('.qty', row).value, 10) || 0; }
+  function setQty(row, n) {
+    n = Math.max(0, Math.min(99, n | 0));
+    $('.qty', row).value = n;
+    row.classList.toggle('is-selected', n >= 1);
+    renderSummary();
+    clearPickerError();
+  }
+  function lines() {
+    return rows.map(function (r) { return { id: r.getAttribute('data-sku'), name: r.getAttribute('data-name'), qty: qtyOf(r) }; })
+      .filter(function (l) { return l.qty >= 1; });
+  }
+  function renderSummary() {
+    var ls = lines(), total = 0, seen = {};
+    ls.forEach(function (l) {
+      total += l.qty; seen[l.id] = true;
+      var li = sumItems[l.id];
+      if (!li) {
+        li = document.createElement('li');
+        li.innerHTML = '<span class="sl-text"></span><button type="button" class="sum-x" data-x="' + l.id + '"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>';
+        $('.sum-x', li).setAttribute('aria-label', 'Bỏ ' + l.name.charAt(0).toLowerCase() + l.name.slice(1) + ' khỏi đơn');
+        sumList.appendChild(li); sumItems[l.id] = li;
+      }
+      $('.sl-text', li).textContent = l.name + ' × ' + l.qty;
+      li.classList.remove('is-out');
+    });
+    Object.keys(sumItems).forEach(function (id) {
+      if (!seen[id]) {
+        var li = sumItems[id]; delete sumItems[id];
+        if (reduced) { li.remove(); } else { li.classList.add('is-out'); setTimeout(function () { li.remove(); }, 250); }
+      }
+    });
+    sumEmpty.hidden = ls.length > 0;
+    sumTotalWrap.hidden = ls.length === 0;
+    sumTotal.textContent = total;
+  }
+  function clearPickerError() {
+    if (lines().length || consult.checked) {
+      picker.classList.remove('has-error'); $('#e-picker').textContent = '';
+    }
+  }
+  rows.forEach(function (row) {
+    var input = $('.qty', row);
+    $$('.step-btn', row).forEach(function (b) {
+      b.addEventListener('click', function () { setQty(row, qtyOf(row) + parseInt(b.getAttribute('data-d'), 10)); });
+    });
+    input.addEventListener('keydown', function (e) { if (['e', 'E', '+', '-', '.', ','].indexOf(e.key) >= 0) e.preventDefault(); });
+    input.addEventListener('input', function () {
+      var raw = input.value.replace(/\D/g, '');
+      if (raw === '') { row.classList.remove('is-selected'); renderSummary(); return; }
+      setQty(row, parseInt(raw, 10));
+    });
+    input.addEventListener('blur', function () { setQty(row, qtyOf(row)); });
+    row.addEventListener('click', function (e) {
+      if (e.target.closest('.stepper') || e.target.closest('label')) return;
+      if (qtyOf(row) === 0) setQty(row, 1);
+    });
+  });
+  sumList.addEventListener('click', function (e) {
+    var b = e.target.closest('.sum-x'); if (!b) return;
+    var row = $('.pick-row[data-sku="' + b.getAttribute('data-x') + '"]', form);
+    setQty(row, 0);
+  });
+  consult.addEventListener('change', function () {
+    consultExtra.classList.toggle('is-open', consult.checked);
+    if (consult.checked) consultExtra.removeAttribute('inert'); else consultExtra.setAttribute('inert', '');
+    clearPickerError();
+  });
+  function syncAll() {
+    rows.forEach(function (r) { r.classList.toggle('is-selected', qtyOf(r) >= 1); });
+    consultExtra.classList.toggle('is-open', consult.checked);
+    if (consult.checked) consultExtra.removeAttribute('inert'); else consultExtra.setAttribute('inert', '');
+    renderSummary();
+  }
+  function orderSku(id, qty) {
+    var row = $('.pick-row[data-sku="' + id + '"]', form); if (!row) return;
+    setQty(row, Math.max(qtyOf(row), qty || 1));
+    row.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+    setTimeout(function () {
+      row.classList.remove('is-pulse'); void row.offsetWidth; row.classList.add('is-pulse');
+      setTimeout(function () { row.classList.remove('is-pulse'); }, 1500);
+    }, reduced ? 0 : 500);
+  }
+  window.__orderSku = orderSku;
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var first = null;
-    ['name', 'phone', 'product'].forEach(function (n) {
-      if (!validateField(n) && !first) first = $('input, select', $('[data-field="' + n + '"]', form));
+    ['name', 'phone'].forEach(function (n) {
+      if (!validateField(n) && !first) first = $('input', $('[data-field="' + n + '"]', form));
     });
+    if (!lines().length && !consult.checked) {
+      picker.classList.add('has-error');
+      $('#e-picker').textContent = MSG.picker;
+      if (!first) first = picker;
+      // order of fields: name, phone, picker. Focus the earliest invalid one.
+    }
     if (first) { first.focus(); return; }
-    // No backend: show on-page success state.
+    if ($('.hp', form).value) { showSuccess(); return; }   // honeypot: fake success
+    sendOrder();
+  });
+  var submitBtn = $('#submitBtn'), formError = $('#formError'), sending = false;
+  function showSuccess() {
+    var ls = lines(), phone = $('#f-phone').value.trim();
+    var ul = $('#successLines'); ul.innerHTML = '';
+    ls.forEach(function (l) { var li = document.createElement('li'); li.textContent = '• ' + l.name + ' × ' + l.qty; ul.appendChild(li); });
+    if (!ls.length) { var li0 = document.createElement('li'); li0.textContent = 'Yêu cầu tư vấn'; ul.appendChild(li0); }
+    $('#successCall').textContent = 'HTX sẽ gọi lại cho bạn theo số ' + phone + '.';
+    form.reset();
+    syncAll();
     card.classList.add('is-sent');
     success.classList.add('is-show');
     success.focus({ preventScroll: true });
-  });
+  }
+  function setSending(on) {
+    sending = on;
+    submitBtn.disabled = on;
+    submitBtn.classList.toggle('is-loading', on);
+    submitBtn.setAttribute('aria-busy', on ? 'true' : 'false');
+    $('.btn-label', submitBtn).textContent = on ? 'Đang gửi…' : 'Gửi yêu cầu';
+  }
+  function sendOrder() {
+    if (sending) return;
+    formError.hidden = true;
+    var name = $('#f-name').value.trim();
+    var ls = lines(), total = ls.reduce(function (s, l) { return s + l.qty; }, 0);
+    var wantConsult = consult.checked;
+    var topics = $$('input[name="topic"]:checked', form).map(function (i) { return i.value; });
+    var payload = {
+      'Họ và tên': name,
+      'Số điện thoại': $('#f-phone').value.trim(),
+      'Địa chỉ nhận hàng': $('#f-addr').value.trim() || '—',
+      'Sản phẩm đặt': ls.length ? ls.map(function (l) { return '• ' + l.name + ' × ' + l.qty; }).join('\n') : '— (chỉ cần tư vấn)',
+      'Tổng số sản phẩm': total,
+      'Cần tư vấn thêm': wantConsult ? 'Có' : 'Không',
+      'Nội dung cần tư vấn': wantConsult ? (topics.join(', ') || '—') : '—',
+      'Thời gian gọi lại': wantConsult ? $('#f-time').value : '—',
+      'Lời nhắn': $('#f-msg').value.trim() || '(không có)',
+      'Thời gian gửi': new Date().toLocaleString('vi-VN'),
+      'Trang': location.href,
+      _subject: ls.length ? ('Đơn hàng mới – ' + name + ' – ' + total + ' sản phẩm') : ('Yêu cầu tư vấn – ' + name),
+      _template: 'table',
+      _captcha: 'false'
+    };
+    setSending(true);
+    var ctrl = new AbortController();
+    var to = setTimeout(function () { ctrl.abort(); }, 15000);
+    fetch('https://formsubmit.co/ajax/htxdvnnbinhnam@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: ctrl.signal
+    }).then(function (res) {
+      if (!res.ok) throw new Error('http ' + res.status);
+      return res.json();
+    }).then(function (json) {
+      if (json && (json.success === true || json.success === 'true')) showSuccess();
+      else throw new Error('rejected');
+    }).catch(function () {
+      formError.hidden = false;
+    }).then(function () {
+      clearTimeout(to);
+      setSending(false);
+    });
+  }
   $('#formReset').addEventListener('click', function () {
     form.reset();
+    syncAll();
+    picker.classList.remove('has-error'); $('#e-picker').textContent = '';
     card.classList.remove('is-sent'); success.classList.remove('is-show');
+    formError.hidden = true;
     $('#f-name').focus();
   });
+  syncAll();
+  (function () {
+    var qs = new URLSearchParams(location.search), sp = qs.get('sp');
+    if (sp) {
+      var q = parseInt(qs.get('qty'), 10);
+      setTimeout(function () { orderSku(sp, q > 0 ? Math.min(q, 99) : 1); }, 350);
+    }
+  })();
+  }
 
   /* ---------- FAB visibility ---------- */
   (function () {
     var seen = {};
-    function upd() { document.body.classList.toggle('fab-away', !!(seen.contact || seen.footer)); }
+    var mq = window.matchMedia('(max-width: 640px)');
+    function upd() { document.body.classList.toggle('fab-away', mq.matches && !!seen.contact); }
+    mq.addEventListener && mq.addEventListener('change', upd);
     if ('IntersectionObserver' in window) {
       var fio = new IntersectionObserver(function (es) {
         es.forEach(function (e) { seen[e.target.id === 'lien-he' ? 'contact' : 'footer'] = e.isIntersecting; });
         upd();
       });
-      var a = $('#lien-he'), b = $('#footer');
-      a && fio.observe(a); b && fio.observe(b);
+      var a = $('#lien-he');
+      a && fio.observe(a);
     }
     function ui() {
       var open = menuOpen || $$('.overlay').some(function (o) { return o.classList.contains('is-open'); });
       document.body.classList.toggle('ui-open', open);
+      if (open || document.body.classList.contains('fab-away')) closeZalo(false);
     }
+    var zp = $('#zaloPop'), zf = $('#zaloFab');
+    function closeZalo(ret) {
+      if (!zp.classList.contains('is-open')) return;
+      zp.classList.remove('is-open'); zp.setAttribute('aria-hidden', 'true'); zp.setAttribute('inert', '');
+      zf.setAttribute('aria-expanded', 'false');
+      if (ret) zf.focus();
+    }
+    function openZalo() {
+      zp.classList.add('is-open'); zp.removeAttribute('inert'); zp.setAttribute('aria-hidden', 'false');
+      zf.setAttribute('aria-expanded', 'true');
+      setTimeout(function () { $('.zp-open', zp).focus({ preventScroll: true }); }, 60);
+    }
+    zf.addEventListener('click', function () { if (zp.classList.contains('is-open')) closeZalo(true); else openZalo(); });
+    $('#zaloClose').addEventListener('click', function () { closeZalo(true); });
+    document.addEventListener('keydown', function (e) {
+      if (!zp.classList.contains('is-open')) return;
+      if (e.key === 'Escape') { closeZalo(true); return; }
+      trapKeys(e, zp, [zf]);
+    });
+    document.addEventListener('click', function (e) {
+      if (zp.classList.contains('is-open') && !zp.contains(e.target) && !zf.contains(e.target)) closeZalo(false);
+    });
+    var copied = $('#zaloCopied');
+    $('#zaloCopy').addEventListener('click', function () {
+      var num = '0971292430';
+      function done() { copied.textContent = 'Đã sao chép'; setTimeout(function () { copied.textContent = ''; }, 2500); }
+      function fallback() {
+        var t = document.createElement('textarea'); t.value = num; t.style.position = 'fixed'; t.style.opacity = '0';
+        document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); done(); } catch (err) { copied.textContent = 'Số: 0971 292 430'; }
+        document.body.removeChild(t);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(num).then(done, fallback); else fallback();
+    });
     new MutationObserver(ui).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
   })();
 

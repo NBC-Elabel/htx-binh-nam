@@ -1,0 +1,20 @@
+<!-- Certificate lightbox -->
+<div class="overlay lightbox" id="lightbox" aria-hidden="true">
+  <div class="overlay-bg" data-close></div>
+  <div class="lb" role="dialog" aria-modal="true" aria-label="Xem ảnh giấy tờ" id="lbDialog">
+    <div class="lb-bar">
+      <span class="lb-title" id="lbTitle"></span>
+      <div class="lb-tools">
+        <button class="icon-btn" type="button" id="lbZoom" aria-pressed="false" aria-label="Phóng to hoặc thu nhỏ"><svg class="icon" aria-hidden="true"><use href="#i-zoom"/></svg></button>
+        <button class="icon-btn" type="button" data-close aria-label="Đóng"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+      </div>
+    </div>
+    <div class="lb-stage" id="lbStage">
+      <button class="icon-btn lb-nav lb-prev" type="button" id="lbPrev" aria-label="Xem ảnh trước"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button>
+      <img id="lbImg" src="" alt="" width="930" height="1280">
+      <button class="icon-btn lb-nav lb-next" type="button" id="lbNext" aria-label="Xem ảnh tiếp theo"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button>
+    </div>
+    <p class="lb-cap" id="lbCap" aria-live="polite"></p>
+  </div>
+</div>
+

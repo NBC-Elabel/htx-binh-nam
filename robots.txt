@@ -1,2 +1,3 @@
 User-agent: *
-Disallow: /
+Allow: /
+Sitemap: https://nbc-elabel.github.io/htx-binh-nam/sitemap.xml

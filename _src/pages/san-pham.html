@@ -1,0 +1,17 @@
+{{> pagehead}}
+<section class="section products products--list" aria-labelledby="h-list">
+  <div class="container">
+    <h2 class="sr-only" id="h-list">Danh sách sản phẩm</h2>
+    <div class="filter-tabs reveal" role="tablist" aria-label="Lọc theo dòng sản phẩm">
+      <button class="filter-tab" role="tab" type="button" data-filter="all" aria-selected="true" aria-controls="productGrid">Tất cả</button>
+      <button class="filter-tab" role="tab" type="button" data-filter="dau-phong" aria-selected="false" aria-controls="productGrid" tabindex="-1">Đậu phộng</button>
+      <button class="filter-tab" role="tab" type="button" data-filter="me-den" aria-selected="false" aria-controls="productGrid" tabindex="-1">Mè đen</button>
+    </div>
+    <div class="product-grid" id="productGrid" role="tabpanel" aria-label="Danh sách sản phẩm" data-stagger>
+{{product_cards}}
+    </div>
+    <p class="products-note reveal">Sản phẩm ép từ hạt nguyên chất, không dùng hóa chất trong chế biến nên có thể có lắng cặn tự nhiên. Điều này không ảnh hưởng đến chất lượng.</p>
+  </div>
+</section>
+{{> s_compare}}
+{{> s_faq}}

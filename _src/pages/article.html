@@ -1,0 +1,41 @@
+<section class="page-head page-head--slim">
+  <div class="container">
+{{breadcrumb}}
+    <div class="art-meta"><span class="po-type">{{type_label}}</span><span class="art-time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>{{meta_line}}</span></div>
+    <h1 class="page-title">{{title}}</h1>
+    <p class="lead">{{sapo}}</p>
+  </div>
+</section>
+
+<section class="section article" aria-label="Nội dung bài viết">
+  <div class="container art-grid">
+    <article class="prose reveal">
+{{article_body}}
+    </article>
+    <figure class="art-figure reveal reveal--right">
+      {{pic}}
+    </figure>
+  </div>
+</section>
+
+<section class="section products" data-wave="#FBF7EE" aria-labelledby="h-rel">
+  <div class="container">
+    <div class="section-head" data-stagger>
+      <h2 class="h2 reveal" id="h-rel">{{rel_products_title}}</h2>
+    </div>
+    <div class="product-grid" data-stagger>
+{{related_products}}
+    </div>
+  </div>
+</section>
+
+<section class="section recipes" data-wave="#F5EEDD" aria-labelledby="h-more">
+  <div class="container">
+    <div class="section-head" data-stagger>
+      <h2 class="h2 reveal" id="h-more">Bài viết khác</h2>
+    </div>
+    <div class="post-grid" data-stagger>
+{{related_posts}}
+    </div>
+  </div>
+</section>

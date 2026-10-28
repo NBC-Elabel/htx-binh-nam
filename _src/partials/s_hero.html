@@ -1,0 +1,63 @@
+<section class="hero" id="trang-chu" data-theme="peanut" aria-roledescription="carousel" aria-label="Giới thiệu hai dòng dầu Bình Nam">
+  <div class="hero-bg hero-bg--peanut"></div>
+  <div class="hero-bg hero-bg--sesame"></div>
+  <svg class="hero-deco hero-deco--1" viewBox="0 0 200 200" data-parallax="-0.05" aria-hidden="true"><use href="#leaf-deco"/></svg>
+  <svg class="hero-deco hero-deco--2" viewBox="0 0 200 200" data-parallax="0.04" aria-hidden="true"><use href="#leaf-deco"/></svg>
+  <div class="container">
+    <div class="hero-stage" id="heroStage">
+      <article class="hero-slide slide--peanut is-active" role="group" aria-roledescription="slide" aria-label="1 trên 2: Dầu đậu phộng">
+        <div class="hero-copy">
+          <span class="eyebrow">Dầu đậu phộng nguyên chất</span>
+          <h1 class="hero-title">Vàng óng từ hạt <em>đậu phộng</em> quê</h1>
+          <p class="hero-desc">Ép từ 100% hạt đậu phộng nguyên chất, giữ trọn vị béo bùi của đồng quê. Dùng làm gia vị cho mọi bữa cơm nhà.</p>
+          <div class="hero-seals">
+            <span class="seal"><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg>OCOP 3★</span>
+            <span class="seal"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>100% nguyên chất</span>
+          </div>
+          <div class="hero-ctas">
+            <a class="btn btn--primary" href="{{root}}san-pham.html?loai=dau-phong">Khám phá đậu phộng <svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--ghost" href="{{root}}lien-he.html">Đặt hàng ngay</a>
+          </div>
+        </div>
+        <div class="hero-media">
+          <div class="hero-parallax" data-parallax="0.07">
+            <div class="hero-frame"><picture><source type="image/webp" srcset="{{root}}assets/img/dau-phong-500ml-800.webp 800w, {{root}}assets/img/dau-phong-500ml-1600.webp 1280w" sizes="(min-width: 960px) 520px, 420px"><img src="{{root}}assets/img/dau-phong-500ml.jpg" width="1280" height="1170" alt="Hai chai dầu đậu phộng Bình Nam 500 ml, mặt trước và mặt sau, đặt cạnh hạt đậu phộng" loading="eager" decoding="async" fetchpriority="high"></picture></div>
+            <div class="hero-badge" aria-hidden="true"><div><b>OCOP</b><span>3 sao</span></div></div>
+          </div>
+        </div>
+      </article>
+      <article class="hero-slide slide--sesame" role="group" aria-roledescription="slide" aria-label="2 trên 2: Dầu mè đen" aria-hidden="true" inert>
+        <div class="hero-copy">
+          <span class="eyebrow">Dầu mè đen nguyên chất</span>
+          <h2 class="hero-title">Đen huyền, thơm lừng từ hạt <em>mè</em></h2>
+          <p class="hero-desc">Hạt mè đen được ép nguyên chất, cho hương thơm đậm và màu hổ phách óng ả. Vài giọt rưới lên bát cháo hay đĩa rau là món ăn đã đậm đà hơn.</p>
+          <div class="hero-seals">
+            <span class="seal"><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg>OCOP 3★</span>
+            <span class="seal"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>100% nguyên chất</span>
+          </div>
+          <div class="hero-ctas">
+            <a class="btn btn--primary" href="{{root}}san-pham.html?loai=me-den">Khám phá mè đen <svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--ghost" href="{{root}}lien-he.html">Đặt hàng ngay</a>
+          </div>
+        </div>
+        <div class="hero-media">
+          <div class="hero-parallax" data-parallax="0.07">
+            <div class="hero-frame"><picture><source type="image/webp" srcset="{{root}}assets/img/dau-me-den-500ml-800.webp 800w, {{root}}assets/img/dau-me-den-500ml-1600.webp 1280w" sizes="(min-width: 960px) 520px, 420px"><img src="{{root}}assets/img/dau-me-den-500ml.jpg" width="1280" height="1170" alt="Hai chai dầu mè đen Bình Nam 500 ml màu nâu hổ phách, cạnh hạt mè đen và bát dầu" loading="lazy" decoding="async"></picture></div>
+            <div class="hero-badge" aria-hidden="true"><div><b>100%</b><span>nguyên chất</span></div></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+  <div class="container hero-controls">
+    <button class="icon-btn hero-ctrl" id="heroPrev" type="button" aria-label="Slide trước"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button>
+    <button class="icon-btn hero-ctrl" id="heroNext" type="button" aria-label="Slide tiếp theo"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button>
+    <div class="hero-dots" role="group" aria-label="Chọn slide">
+      <button class="hero-dot" type="button" data-slide="0" aria-label="Xem slide 1" aria-current="true"></button>
+      <button class="hero-dot" type="button" data-slide="1" aria-label="Xem slide 2"></button>
+    </div>
+    <button class="icon-btn hero-ctrl" id="heroPause" type="button" aria-label="Tạm dừng slide"><svg class="icon" aria-hidden="true"><use href="#i-pause"/></svg></button>
+    <span class="hero-count" aria-hidden="true"><span id="heroCur">01</span> / 02</span>
+  </div>
+</section>
+

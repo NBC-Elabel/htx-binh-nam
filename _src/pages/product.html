@@ -1,0 +1,80 @@
+<section class="page-head page-head--slim">
+  <div class="container">{{breadcrumb}}</div>
+</section>
+
+<section class="section pd" data-line="{{line}}" aria-labelledby="h-pd">
+  <div class="container pd-grid">
+    <div class="pd-gallery reveal reveal--left">
+      <button class="pd-zoom" type="button" data-lightbox="single" data-src="assets/img/{{img}}.jpg" data-w="{{img_w}}" data-h="{{img_h}}" data-title="{{name}}" data-alt="{{alt}}" aria-label="Phóng to ảnh {{name}}">
+        {{pic}}
+        <span class="zoom-chip" aria-hidden="true"><svg class="icon"><use href="#i-zoom"/></svg></span>
+      </button>
+    </div>
+    <div class="pd-info" data-stagger>
+      <div class="pd-tags reveal"><span class="chip">{{chip}}</span>{{ocop_tag}}</div>
+      <h1 class="pd-title reveal" id="h-pd">{{name}}</h1>
+      <p class="pd-intro reveal">{{intro}}</p>
+      <div class="pd-actions reveal">
+        <a class="btn" href="{{root}}lien-he.html?sp={{id}}">Đặt sản phẩm này <svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--ghost-dark" href="tel:{{phone_tel}}"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>Gọi {{phone}}</a>
+        <a class="btn btn--zalo" href="{{zalo}}" target="_blank" rel="noopener">Nhắn Zalo</a>
+      </div>
+      <ul class="check-list reveal">
+{{highlights}}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section pd-more" data-wave="#FBF7EE" aria-labelledby="h-pd-more">
+  <div class="container pd-more-grid">
+    <div class="pd-card reveal">
+      <h2 class="h3" id="h-pd-more">Cách dùng gợi ý</h2>
+      <ul class="check-list">
+{{usage}}
+      </ul>
+      <p class="pd-for"><b>Phù hợp với:</b> {{fit_for}}.</p>
+    </div>
+    <div class="pd-card reveal">
+      <h2 class="h3">Thông số</h2>
+      <table class="spec-table">
+        <caption class="sr-only">Thông số {{name}}</caption>
+        <tbody>
+{{spec_rows}}
+        </tbody>
+      </table>
+    </div>
+    <div class="pd-card pd-card--note reveal">
+      <h2 class="h3">Lưu ý về lắng cặn</h2>
+      <p>{{sediment}}</p>
+    </div>
+{{cert_block}}
+  </div>
+</section>
+
+<section class="section products" data-wave="#FBF7EE" aria-labelledby="h-rel">
+  <div class="container">
+    <div class="section-head" data-stagger>
+      <h2 class="h2 reveal" id="h-rel">Sản phẩm liên quan</h2>
+    </div>
+    <div class="product-grid" data-stagger>
+{{related_products}}
+    </div>
+  </div>
+</section>
+
+<section class="section recipes" data-wave="#F5EEDD" aria-labelledby="h-rec">
+  <div class="container">
+    <div class="section-head" data-stagger>
+      <h2 class="h2 reveal" id="h-rec">Công thức gợi ý</h2>
+    </div>
+    <div class="post-grid" data-stagger>
+{{related_posts}}
+    </div>
+  </div>
+</section>
+
+<div class="sticky-cta" role="region" aria-label="Đặt hàng nhanh">
+  <span class="sc-name">{{name}}</span>
+  <a class="btn btn--sm" href="{{root}}lien-he.html?sp={{id}}">Đặt sản phẩm này</a>
+</div>

@@ -1,0 +1,71 @@
+{{> s_hero}}
+{{> s_marquee}}
+
+<section class="section about" data-wave="#123F24" aria-labelledby="h-about">
+  <div class="container about-grid">
+    <div class="about-copy" data-stagger>
+      <span class="eyebrow reveal">Giới thiệu</span>
+      <h2 class="h2 reveal" id="h-about">Giữ trọn cái gốc của <em>hạt quê</em></h2>
+      <p class="reveal">HTX Dịch vụ Nông nghiệp Bình Nam có gốc ở vùng quê Thăng Bình, nay thuộc TP. Đà Nẵng. Chúng tôi ép dầu từ hạt đậu phộng và hạt mè đen, không dùng hóa chất trong chế biến.</p>
+      <p class="reveal"><a class="btn" href="{{root}}gioi-thieu.html">Xem câu chuyện <svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+    </div>
+    <div class="about-visual reveal reveal--right">
+      <svg class="about-leaf" viewBox="0 0 200 200" aria-hidden="true"><use href="#leaf-deco"/></svg>
+      <div class="about-photo">@@PIC(dau-phong-1l|Hai chai dầu đậu phộng Bình Nam 1 lít, mặt trước và mặt sau, màu vàng óng|lazy|(min-width: 960px) 460px, 90vw|)@@</div>
+      <div class="logo-badge about-logo"><picture><source type="image/webp" srcset="{{root}}assets/img/logo-badge-320.webp"><img src="{{root}}assets/img/logo-badge-320.png" width="320" height="320" alt="Logo HTX Nông nghiệp Bình Nam: hình máy cày trong vòng tròn xanh lá, băng rôn cam ghi BÌNH NAM" loading="lazy" decoding="async"></picture></div>
+    </div>
+  </div>
+</section>
+
+<section class="section products" data-wave="#FBF7EE" aria-labelledby="h-products">
+  <div class="container">
+    <div class="section-head" data-stagger>
+      <span class="eyebrow reveal">Sản phẩm</span>
+      <h2 class="h2 reveal" id="h-products">Sản phẩm của Bình Nam</h2>
+      <p class="lead reveal">Hai dòng dầu, năm quy cách, từ chai 250 ml đến can 5 lít.</p>
+    </div>
+    <div class="product-grid" data-stagger>
+{{product_cards}}
+    </div>
+    <p class="section-cta reveal"><a class="btn" href="{{root}}san-pham.html">Xem tất cả sản phẩm <svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</section>
+
+<section class="section quality quality--teaser" data-wave="#F5EEDD" aria-labelledby="h-quality">
+  <div class="container teaser-grid">
+    <div data-stagger>
+      <span class="eyebrow reveal">Chất lượng</span>
+      <h2 class="h2 reveal" id="h-quality">Có giấy chứng nhận và phiếu kiểm nghiệm</h2>
+      <p class="lead reveal">Dầu đậu phộng của HTX có giấy chứng nhận OCOP 3 sao và phiếu kiểm nghiệm TSL 16 chỉ tiêu. Bạn có thể xem ảnh gốc ngay trên trang.</p>
+      <p class="reveal"><a class="btn" href="{{root}}gioi-thieu.html#chung-nhan">Xem chứng nhận và kiểm nghiệm <svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+    </div>
+    <div class="teaser-docs reveal reveal--right">
+      <a class="doc-thumb" href="{{root}}gioi-thieu.html#chung-nhan" aria-label="Xem giấy chứng nhận OCOP 3 sao">@@PIC(chung-nhan-ocop|Giấy chứng nhận OCOP 3 sao cho dầu đậu phộng nguyên chất Bình Nam, UBND huyện Thăng Bình cấp ngày 11/12/2024|lazy|(min-width: 640px) 220px, 44vw|)@@</a>
+      <a class="doc-thumb" href="{{root}}gioi-thieu.html#chung-nhan" aria-label="Xem phiếu kiểm nghiệm TSL">@@PIC(kiem-nghiem-tsl-1|Trang 1 phiếu kết quả kiểm nghiệm của Trung tâm Kiểm nghiệm TSL, mẫu dầu lạc, bảng chỉ tiêu 1 đến 13|lazy|(min-width: 640px) 220px, 44vw|)@@</a>
+    </div>
+  </div>
+</section>
+
+<section class="section recipes" data-wave="#FFFFFF" aria-labelledby="h-recipes">
+  <div class="container">
+    <div class="section-head" data-stagger>
+      <span class="eyebrow reveal">Góc bếp</span>
+      <h2 class="h2 reveal" id="h-recipes">Từ góc bếp và tin tức</h2>
+      <p class="lead reveal">Công thức nhanh cho bữa cơm nhà và tin mới từ HTX.</p>
+    </div>
+    <div class="post-grid" data-stagger>
+{{home_posts}}
+    </div>
+    <p class="section-cta reveal"><a class="btn" href="{{root}}goc-bep.html">Xem góc bếp <svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</section>
+
+<section class="section cta-band" data-wave="#FBF7EE" aria-labelledby="h-cta">
+  <div class="container cta-inner" data-stagger>
+    <div>
+      <h2 class="h2 reveal" id="h-cta">Đặt hàng hoặc hỏi thêm</h2>
+      <p class="lead reveal">Chọn sản phẩm và số lượng, để lại số điện thoại. HTX sẽ gọi lại để xác nhận đơn.</p>
+    </div>
+    <p class="reveal"><a class="btn btn--gold" href="{{root}}lien-he.html">Đặt hàng ngay <svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</section>
